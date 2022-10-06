@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var isAnimating: Bool = false
     @State private var imageScale: CGFloat = 1
     @State private var imageOffset: CGSize = .zero
-    
+    @State private var shadowColor: Color = .black
     // MARK: - Function
     
     func resetImageState() {
@@ -33,19 +33,27 @@ struct ContentView: View {
                     .aspectRatio(contentMode: .fit)
                     .cornerRadius(8)
                     .padding()
-                    .shadow(color: .black.opacity(0.8), radius: 12, x: 2, y: 2)
+                    .shadow(color: shadowColor, radius: 22, x: 2, y: 2)
                     .opacity(isAnimating ? 1 : 0)
                     .animation(.linear(duration: 1), value: isAnimating)
                     .offset(imageOffset)
                     .scaleEffect(imageScale)
                 // MARK: - 1. Tap Gesture
-                    .onTapGesture(count: 2, perform: {
+                    .onTapGesture(count: 1, perform: {
                         if imageScale == 1 {
                             withAnimation(.spring()) {
                                 imageScale = 5
                             }
                         } else {
                            resetImageState()
+                        }
+                    })
+                // MARK: - 1. LongPress Gesture
+                    .onLongPressGesture(perform: {
+                        if shadowColor == .black {
+                            shadowColor = .green
+                        } else {
+                            shadowColor = .black
                         }
                     })
                 // MARK: - 2. Drag Gesture
