@@ -14,20 +14,19 @@ struct ContentView: View {
     @State private var imageScale: CGFloat = 1
     @State private var imageOffset: CGSize = .zero
     @State private var shadowColor: Color = .black
-    // MARK: - Function
     
-    func resetImageState() {
-        return withAnimation(.spring()) {
+    // MARK: - Content
+    
+    func resetSize() {
+        withAnimation(.spring()) {
             imageScale = 1
             imageOffset = .zero
         }
     }
-    
-    // MARK: - Content
-    
     var body: some View {
         NavigationView {
             ZStack {
+                Color.clear
                 Image("magazine-front-cover")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -45,10 +44,10 @@ struct ContentView: View {
                                 imageScale = 5
                             }
                         } else {
-                           resetImageState()
+                            resetSize()
                         }
                     })
-                // MARK: - 1. LongPress Gesture
+                // MARK: - 2. LongPress Gesture
                     .onLongPressGesture(perform: {
                         if shadowColor == .black {
                             shadowColor = .green
@@ -56,17 +55,16 @@ struct ContentView: View {
                             shadowColor = .black
                         }
                     })
-                // MARK: - 2. Drag Gesture
+                // MARK: - 3. Drag Gesture
+                
                     .gesture(
                         DragGesture()
                             .onChanged({ gesture in
-                                withAnimation(.linear(duration: 1)) {
-                                    imageOffset = gesture.translation
-                                }
+                                imageOffset = gesture.translation
                             })
                             .onEnded({ _ in
                                 if imageScale <= 1 {
-                                    resetImageState()
+                                    resetSize()
                                 }
                             })
                     )
@@ -77,13 +75,20 @@ struct ContentView: View {
             .onAppear {
                     isAnimating = true
             }
+            .overlay(
+                InfoPanelView(scale: imageScale, offset: imageOffset)
+                    .padding(.horizontal)
+                    .padding(.top, 30)
+                ,
+            alignment: .top
+            )
         } // END of Navigation View
-        //.navigationViewStyle(.stack)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.dark)
     }
 }

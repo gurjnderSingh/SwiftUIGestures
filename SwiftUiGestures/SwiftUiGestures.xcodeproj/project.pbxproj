@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18286B5D28EFFDEE006B0A24 /* InfoPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18286B5C28EFFDEE006B0A24 /* InfoPanelView.swift */; };
 		1860D79828ECA5B100DBC8BB /* SwiftUiGesturesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860D79728ECA5B100DBC8BB /* SwiftUiGesturesApp.swift */; };
 		1860D79A28ECA5B100DBC8BB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860D79928ECA5B100DBC8BB /* ContentView.swift */; };
 		1860D79C28ECA5B400DBC8BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1860D79B28ECA5B400DBC8BB /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18286B5C28EFFDEE006B0A24 /* InfoPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPanelView.swift; sourceTree = "<group>"; };
 		1860D79428ECA5B100DBC8BB /* SwiftUiGestures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUiGestures.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1860D79728ECA5B100DBC8BB /* SwiftUiGesturesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUiGesturesApp.swift; sourceTree = "<group>"; };
 		1860D79928ECA5B100DBC8BB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		1860D7C328ECA62100DBC8BB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				18286B5C28EFFDEE006B0A24 /* InfoPanelView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			files = (
 				1860D79A28ECA5B100DBC8BB /* ContentView.swift in Sources */,
 				1860D79828ECA5B100DBC8BB /* SwiftUiGesturesApp.swift in Sources */,
+				18286B5D28EFFDEE006B0A24 /* InfoPanelView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
