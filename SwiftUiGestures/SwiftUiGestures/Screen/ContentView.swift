@@ -60,7 +60,9 @@ struct ContentView: View {
                     .gesture(
                         DragGesture()
                             .onChanged({ gesture in
-                                imageOffset = gesture.translation
+                                withAnimation(.linear(duration: 3)) {
+                                    imageOffset = gesture.translation
+                                }
                             })
                             .onEnded({ _ in
                                 if imageScale <= 1 {
@@ -78,10 +80,52 @@ struct ContentView: View {
             .overlay(
                 InfoPanelView(scale: imageScale, offset: imageOffset)
                     .padding(.horizontal)
-                    .padding(.top, 30)
-                ,
-            alignment: .top
+                    .padding(.top, 30),alignment: .top
             )
+            // MARK: - Controls
+            
+            .overlay (
+                Group {
+                    HStack {
+                        // Scale down
+                        Button {
+                            withAnimation(.spring()) {
+                                if imageScale > 1 {
+                                    imageScale -= 1
+                                }
+                                if imageScale <= 1 {
+                                    resetSize()
+                                }
+                            }
+                        } label: {
+                            ControlImageView(icon: "minus.magnifyingglass")
+                        }
+                        // Reset
+                        Button {
+                            resetSize()
+                        } label: {
+                            ControlImageView(icon: "arrow.up.left.and.down.right.magnifyingglass")
+                        }
+                        //Scale UP
+                        Button {
+                            if imageScale < 5 {
+                                imageScale += 1
+                            }
+                            if imageScale >= 5 {
+                                imageScale = 5
+                            }
+                        } label: {
+                            ControlImageView(icon: "plus.magnifyingglass")
+                        }
+                    } ////: Controls
+                    .padding(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
+                    .background(.ultraThinMaterial)
+                    .opacity(isAnimating ? 1 : 0)
+                    .cornerRadius(12)
+                }
+               .padding(.bottom, 30), alignment: .bottom
+            )
+            
         } // END of Navigation View
     }
 }
