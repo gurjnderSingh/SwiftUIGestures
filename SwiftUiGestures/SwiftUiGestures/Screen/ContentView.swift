@@ -48,15 +48,14 @@ struct ContentView: View {
                         }
                     })
                 // MARK: - 2. LongPress Gesture
-                    .onLongPressGesture(perform: {
-                        if shadowColor == .black {
-                            shadowColor = .green
-                        } else {
-                            shadowColor = .black
-                        }
-                    })
+//                    .onLongPressGesture(perform: {
+//                        if shadowColor == .black {
+//                            shadowColor = .green
+//                        } else {
+//                            shadowColor = .black
+//                        }
+//                    })
                 // MARK: - 3. Drag Gesture
-                
                     .gesture(
                         DragGesture()
                             .onChanged({ gesture in
@@ -67,10 +66,33 @@ struct ContentView: View {
                             .onEnded({ _ in
                                 if imageScale <= 1 {
                                     resetSize()
+                                } else if imageScale > 5 {
+                                    imageScale = 5
                                 }
                             })
                     )
-            }
+                // MARK: - 4. Magnification
+                    .gesture(
+                        MagnificationGesture()
+                            .onChanged({ value in
+                                withAnimation(.linear(duration: 1), {
+                                    if imageScale >= 1 && imageScale <= 5 {
+                                        imageScale = value
+                                    } else if imageScale > 5 {
+                                        imageScale = 5
+                                    }
+                                })
+                            })
+                            .onEnded({ _ in
+                                if imageScale > 5 {
+                                    imageScale = 5
+                                } else if imageScale <= 1 {
+                                    resetSize()
+                                }
+                            })
+                        
+                    )
+            } // Zstack
             .ignoresSafeArea(edges: .all)
             .navigationTitle("Pinch & Zoom")
             .navigationBarTitleDisplayMode(.inline)
