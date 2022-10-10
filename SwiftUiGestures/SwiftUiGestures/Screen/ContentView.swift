@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var imageScale: CGFloat = 1
     @State private var imageOffset: CGSize = .zero
     @State private var shadowColor: Color = .black
+    @State private var isDrawerOpen: Bool = false
     
     // MARK: - Content
     
@@ -48,13 +49,13 @@ struct ContentView: View {
                         }
                     })
                 // MARK: - 2. LongPress Gesture
-//                    .onLongPressGesture(perform: {
-//                        if shadowColor == .black {
-//                            shadowColor = .green
-//                        } else {
-//                            shadowColor = .black
-//                        }
-//                    })
+                    .onLongPressGesture(perform: {
+                        if shadowColor == .black {
+                            shadowColor = .green
+                        } else {
+                            shadowColor = .black
+                        }
+                    })
                 // MARK: - 3. Drag Gesture
                     .gesture(
                         DragGesture()
@@ -105,7 +106,6 @@ struct ContentView: View {
                     .padding(.top, 30),alignment: .top
             )
             // MARK: - Controls
-            
             .overlay (
                 Group {
                     HStack {
@@ -146,6 +146,33 @@ struct ContentView: View {
                     .cornerRadius(12)
                 }
                .padding(.bottom, 30), alignment: .bottom
+            )
+            // MARK: - Drawer
+            .overlay(
+                HStack(spacing: 12) {
+                    //MARK: - Drawer Handler
+                    Image(systemName: isDrawerOpen ? "chevron.compact.right" : "chevron.compact.left")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 40)
+                        .padding(10)
+                        .foregroundStyle(.secondary)
+                        .onTapGesture {
+                            withAnimation(.easeOut) {
+                                isDrawerOpen.toggle()
+                            }
+                        }
+                    //MARK: - Thumbnail
+                    Spacer()
+                }
+                .padding(EdgeInsets(top: 16, leading: 4, bottom: 16, trailing: 8))
+                .background(.ultraThinMaterial)
+                .cornerRadius(12)
+                .opacity(isAnimating ? 1 : 0)
+                .frame(width: 260)
+                .padding(.top, UIScreen.main.bounds.height / 12)
+                .offset(x: isDrawerOpen ? 20 : 220)
+                , alignment: .topTrailing
             )
             
         } // END of Navigation View
