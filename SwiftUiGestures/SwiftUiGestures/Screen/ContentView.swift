@@ -14,7 +14,7 @@ struct ContentView: View {
     @State private var imageScale: CGFloat = 1
     @State private var imageOffset: CGSize = .zero
     @State private var shadowColor: Color = .black
-    @State private var isDrawerOpen: Bool = true
+    @State private var isDrawerOpen: Bool = false
     
     let pages: [Page] = pagesData
     @State private var pageIndex: Int = 1
@@ -175,7 +175,7 @@ struct ContentView: View {
                         Image(page.imageName)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 80)
+                            .frame(width: 80, height: 80)
                             .cornerRadius(5)
                             .shadow(radius: 4)
                             .opacity(isDrawerOpen ? 1 : 0)
